@@ -1,6 +1,6 @@
 {
   "name": "use-multi-form",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React multi-step form hook",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
