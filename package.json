@@ -1,5 +1,5 @@
 {
-  "name": "@kub938/use-multi-form",
+  "name": "use-multi-form",
   "version": "0.1.0",
   "description": "React multi-step form hook",
   "main": "dist/index.js",
