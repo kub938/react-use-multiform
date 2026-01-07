@@ -11,7 +11,7 @@
 //         </result.current.MultiForm>);
 //   });
 
-//   it("현재 step에 맞는 컴포넌트가 렌더링 되어야 한다", () => {
+//   it("현재 name에 맞는 컴포넌트가 렌더링 되어야 한다", () => {
 //     //
 //   });
 
@@ -25,22 +25,22 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useMultiForm } from "../useMultiForm";
 
-export type stepType = "첫번째 기능" | "두번째" | "세번째 기능" | "4";
+export type nameType = "첫번째 기능" | "두번째" | "세번째 기능" | "4";
 // 테스트용 임시 컴포넌트
 const TestComponent = () => {
-  const steps = ["첫번째 기능", "두번째", "세번째 기능"];
-  const { MultiForm, Step, handleStep, nowStep } = useMultiForm(steps);
+  const names = ["첫번째 기능", "두번째", "세번째 기능"];
+  const { MultiForm, Step, handleStep, nowStep } = useMultiForm(names);
 
   return (
     <div>
       <MultiForm>
-        <Step step={"첫번째 기능"}>
+        <Step name={"첫번째 기능"}>
           <div>첫번째</div>
         </Step>
-        <Step step={"두번째"}>
+        <Step name={"두번째"}>
           <div>두번째</div>
         </Step>
-        <Step step={"세번째 기능"}>
+        <Step name={"세번째 기능"}>
           <div>세번째</div>
         </Step>
       </MultiForm>
@@ -53,7 +53,7 @@ const TestComponent = () => {
 
 describe("MultiForm 컴포넌트 통합 테스트", () => {
   it("처음에는 0번 스텝의 내용만 보여야 한다", () => {
-    const step = ["첫번째 기능", "두번째", "세번째 기능", "4"];
+    const name = ["첫번째 기능", "두번째", "세번째 기능", "4"];
 
     render(<TestComponent />);
 
@@ -86,7 +86,7 @@ describe("MultiForm 컴포넌트 통합 테스트", () => {
     expect(screen.queryByText("첫번째")).toBeNull();
   });
 
-  it("Step의 인자 step에는 0 부터 시작하고 중복 없이 숫자를 배정해야 한다.", async () => {
+  it("name의 인자 name에는 0 부터 시작하고 중복 없이 숫자를 배정해야 한다.", async () => {
     const user = userEvent.setup();
     render(<TestComponent />);
 
