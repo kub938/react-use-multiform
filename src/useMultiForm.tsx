@@ -1,20 +1,27 @@
-import { useState, Children, isValidElement, ReactNode, FC } from "react";
+import { useState, Children, isValidElement, ReactNode } from "react";
 import { MultiFormResponse, StepProps } from "./types";
 
-export const useMultiForm = (): MultiFormResponse => {
-  const [nowStep, setNowStep] = useState(0);
+export function useMultiForm(names: string[]): MultiFormResponse {
+  const [nowStep, setNowStep] = useState(names[0]);
 
   const handleStep = (type: "next" | "before") => {
-    setNowStep((prev) => (type === "next" ? prev + 1 : Math.max(0, prev - 1)));
+    const nowIdx = names.findIndex((name) => name === nowStep);
+    if (nowIdx < names.length - 1 && type === "next") {
+      setNowStep(names[nowIdx + 1]);
+    } else if (nowIdx > 0 && type === "before") {
+      setNowStep(names[nowIdx - 1]);
+    }
   };
 
   const Step = ({ children }: StepProps) => <>{children}</>;
-  const MultiForm = ({ children }: { children: ReactNode }) => {
-    const targetStep = Children.toArray(children).find(
-      (child) => isValidElement(child) && child.props.step === nowStep
-    );
 
-    return <>{targetStep}</>;
+  const MultiForm = ({ children }: { children: ReactNode }) => {
+    const names = Children.toArray(children).filter((child) =>
+      isValidElement(child)
+    );
+    const targetName = names.find((child) => child.props.name === nowStep);
+
+    return <>{targetName}</>;
   };
 
   const multiForm: MultiFormResponse = {
@@ -23,5 +30,6 @@ export const useMultiForm = (): MultiFormResponse => {
     Step,
     MultiForm,
   };
+
   return multiForm;
-};
+}
