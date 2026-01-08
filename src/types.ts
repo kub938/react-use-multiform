@@ -1,13 +1,13 @@
 import type { FC, ReactNode } from "react";
 
-export interface StepProps {
-  name: string;
+export interface StepProps<T> {
+  name: T;
   children: ReactNode;
 }
 
-export interface MultiFormResponse {
-  nowStep: string;
+export interface MultiFormReturn<T> {
+  nowStep: T;
   handleStep: (type: "next" | "before") => void;
-  Step: ({ children }: StepProps) => JSX.Element;
+  Step: ({ children }: StepProps<T>) => JSX.Element;
   MultiForm: ({ children }: { children: ReactNode }) => JSX.Element;
 }
